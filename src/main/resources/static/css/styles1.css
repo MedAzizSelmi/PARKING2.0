@@ -31,7 +31,7 @@ body {
 
 /* Dashboard Section */
 .container {
-    background-color: white;
+    background-color: #007bff;
     text-align: center;
     padding: 30px;
     border-radius: 10px;
@@ -46,14 +46,14 @@ body {
 
 .container h1 {
     font-size: 2.5rem;
-    color: #007bff;
+    color: white;
     font-family: 'Copperplate', cursive;
     text-align: center;
 }
 
 .container p {
     font-size: 1.1rem;
-    color: #555;
+    color: white;
     font-family: 'Brush Script MT', cursive;
     text-align: center;
 }

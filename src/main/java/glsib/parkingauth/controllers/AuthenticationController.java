@@ -13,6 +13,7 @@ import glsib.parkingauth.services.ZoneService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -301,6 +302,27 @@ public class AuthenticationController {
             redirectAttributes.addFlashAttribute("error", "Zone not found with ID: " + zoneId);
         }
         return "redirect:/admin"; // Redirect back to the admin page
+    }
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/redirect-parking")
+    public String redirectBasedOnRole(Principal principal) {
+
+
+        if (principal == null) {
+            return "redirect:/auth/login"; // Redirect to login if no user is logged in
+        }
+
+        // Fetch the authenticated user's details
+        String email = principal.getName();
+        User user = userService.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        // Redirect based on role;
+        if ("ADMIN".equalsIgnoreCase(String.valueOf(user.getRole()))) {
+            return "redirect:/admin"; // Redirect admin users
+        } else {
+            return "redirect:/home"; // Redirect regular users
+        }
     }
 
 
