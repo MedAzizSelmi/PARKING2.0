@@ -36,6 +36,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/auth/signup").permitAll()
                         .requestMatchers("/auth/logout").permitAll()
+                        .requestMatchers("/zones/**").permitAll()
+                        .requestMatchers("/auth2/**").permitAll()
                         .requestMatchers("/auth/profile/edit").permitAll()
                         .requestMatchers("/landing").permitAll()
                         .requestMatchers("/auth/create/**").hasAuthority("ADMIN")
